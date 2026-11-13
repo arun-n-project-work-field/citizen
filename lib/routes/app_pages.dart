@@ -1,0 +1,133 @@
+import 'package:get/get.dart';
+
+import 'package:namma_karnataka_app/about_app_screen.dart';
+import 'package:namma_karnataka_app/contact_us_screen.dart';
+import 'package:namma_karnataka_app/disclaimer_screen.dart';
+
+import 'package:namma_karnataka_app/modules/geotagging/geotagging_binding.dart';
+import 'package:namma_karnataka_app/modules/geotagging/geotagging_screen.dart';
+
+import 'package:namma_karnataka_app/modules/login/login_binding.dart';
+import 'package:namma_karnataka_app/modules/login/login_screen.dart';
+
+import 'package:namma_karnataka_app/modules/data_view/data_view_binding.dart';
+import 'package:namma_karnataka_app/modules/data_view/data_view_screen.dart';
+
+import 'package:namma_karnataka_app/modules/splash/splash_binding.dart';
+import 'package:namma_karnataka_app/modules/splash/splash_screen.dart';
+
+import 'package:namma_karnataka_app/modules/sync-data/sync_data_controller.dart';
+import 'package:namma_karnataka_app/modules/sync-data/sync_data_screen.dart';
+import 'package:namma_karnataka_app/registration/registration_binding.dart';
+
+import 'package:namma_karnataka_app/registration/registration_screen.dart';
+
+import 'package:namma_karnataka_app/sync-status/sync_status_binding.dart';
+import 'package:namma_karnataka_app/sync-status/sync_status_screen.dart';
+
+import '../modules/dashboard/dashboard_screen.dart';
+import 'app_routes.dart';
+
+class AppPages {
+  static final pages = [
+    // -------------------------------------------------------------------------
+    // SPLASH
+    // -------------------------------------------------------------------------
+    GetPage(
+      name: AppRoutes.splash,
+      page: () => const SplashScreen(),
+      binding: SplashBinding(),
+    ),
+
+    // -------------------------------------------------------------------------
+    // LOGIN
+    // -------------------------------------------------------------------------
+    GetPage(
+      name: AppRoutes.login,
+      page: () => const LoginScreen(),
+      binding: LoginBinding(),
+    ),
+
+    // -------------------------------------------------------------------------
+    // REGISTER
+    // -------------------------------------------------------------------------
+    GetPage(
+      name: '/registration',
+      page: () => const RegistrationScreen(),
+      binding: RegistrationBinding(),
+    ),
+
+    // -------------------------------------------------------------------------
+    // DASHBOARD
+    // -------------------------------------------------------------------------
+    GetPage(
+      name: AppRoutes.dashboard,
+      page: () {
+        final arguments =
+            Get.arguments as Map<String, dynamic>? ?? <String, dynamic>{};
+
+        return DashboardScreen(
+          mobileNumber: arguments['mobileNumber']?.toString() ?? '',
+          districtName: arguments['districtName']?.toString() ?? '',
+          districtCode: arguments['districtCode']?.toString() ?? '',
+          talukName: arguments['talukName']?.toString() ?? '',
+          talukCode: arguments['talukCode']?.toString() ?? '',
+        );
+      },
+    ),
+
+    // -------------------------------------------------------------------------
+    // DATA VIEW
+    // -------------------------------------------------------------------------
+    GetPage(
+      name: AppRoutes.dataView,
+      page: () => const DataViewScreen(),
+      binding: DataViewBinding(),
+    ),
+
+    // -------------------------------------------------------------------------
+    // GEO TAGGING
+    // -------------------------------------------------------------------------
+    GetPage(
+      name: AppRoutes.geoTagging,
+      page: () => GeoTaggingScreen(),
+      binding: GeoTaggingBinding(),
+    ),
+
+    // -------------------------------------------------------------------------
+    // RESET PASSWORD
+    // -------------------------------------------------------------------------
+    GetPage(name: AppRoutes.contact, page: () => const ContactUsScreen()),
+
+    // -------------------------------------------------------------------------
+    // ABOUT APP
+    // -------------------------------------------------------------------------
+    GetPage(name: AppRoutes.about, page: () => const AboutAppScreen()),
+
+    // -------------------------------------------------------------------------
+    // DISCLAIMER
+    // -------------------------------------------------------------------------
+    GetPage(name: AppRoutes.disclaimer, page: () => const DisclaimerScreen()),
+
+    // -------------------------------------------------------------------------
+    // SYNC DATA
+    // -------------------------------------------------------------------------
+    GetPage(
+      name: AppRoutes.syncData,
+      page: () {
+        Get.put<SyncDataController>(SyncDataController());
+
+        return const SyncDataScreen();
+      },
+    ),
+
+    // -------------------------------------------------------------------------
+    // SYNC STATUS
+    // -------------------------------------------------------------------------
+    GetPage(
+      name: AppRoutes.syncStatus,
+      page: () => SyncStatusScreen(),
+      binding: SyncStatusBinding(),
+    ),
+  ];
+}
